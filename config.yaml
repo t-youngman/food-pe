@@ -1,0 +1,60 @@
+# Model configuration
+model:
+  # Number of time periods to simulate (each period is 10 years)
+  num_periods: 5
+  
+  # Functional form for supply and demand
+  # RECOMMENDED: Use "log_linear" for accurate elasticity representation
+  # WARNING: Other forms are only accurate for small price changes (<10%)
+  functional_form: "log_linear"  # Options: "log_linear" (recommended), "linear", "translog", "quadratic", "piecewise"
+  
+  # Shock analysis parameters
+  shock_analysis:
+    lower_bound: -0.5  # Minimum shock value (e.g., -1.0 for 100% decrease)
+    upper_bound: 0.5   # Maximum shock value (e.g., 1.0 for 100% increase)
+    step_size: 0.01    # Increment between shock values
+  
+  # Parameters for different functional forms
+  parameters:
+    # Log-linear parameters (recommended)
+    log_linear:
+      import_elasticity: 1.0
+      export_elasticity: 1.0
+    
+    # Linear parameters (only accurate for small changes)
+    linear:
+      import_elasticity: 1.0
+      export_elasticity: 1.0
+    
+    # Translog parameters (only accurate for small changes)
+    translog:
+      import_elasticity: 1.0
+      export_elasticity: 1.0
+      import_quadratic_term: 0.1
+      export_quadratic_term: 0.05
+    
+    # Quadratic parameters (only accurate for small changes)
+    quadratic:
+      import_elasticity: 1.0
+      export_elasticity: 1.0
+      import_quadratic_term: 0.1
+      export_quadratic_term: 0.05
+    
+    # Piecewise linear parameters (only accurate for small changes)
+    piecewise:
+      import_elasticity_low: 3.0
+      import_elasticity_high: 1.5
+      export_elasticity_low: 1.5
+      export_elasticity_high: 0.75
+      price_threshold: 1.2  # Threshold for switching between low and high elasticities
+
+# Plotting configuration
+plotting:
+  figure_size: [10, 12]
+  font_size: 14
+  colors:
+    domestic_supply: "blue"
+    import_supply: "green"
+    export_demand: "red"
+    domestic_demand: "purple"
+    price: "orange" 
